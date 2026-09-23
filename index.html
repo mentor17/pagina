@@ -3,805 +3,557 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Verduras y Algo Más (No Preguntar) – Morón</title>
-
-<meta name="description" content="Verdulería de barrio en Morón con frutas, verduras, precios razonables y explicaciones limitadas.">
-
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='52' font-size='52'>%F0%9F%8D%86</text></svg>">
-
+<title>Verduras y Algo Más – Gran Reapertura</title>
+<meta name="description" content="Verdulería de barrio en Morón. Frutas, verduras, ofertas, reapertura y explicaciones limitadas.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='52' font-size='52'>%F0%9F%A5%95</text></svg>">
 <style>
-
 :root{
-  --green:#176b37;
-  --green2:#249653;
-  --cream:#f6f7f2;
-  --text:#1f2933;
-  --red:#b91c1c;
-  --yellow:#facc15;
+  --green:#175c36;
+  --green2:#2f8f55;
+  --green3:#dff3e5;
+  --cream:#fff9ec;
+  --paper:#fffdf8;
+  --ink:#243228;
+  --tomato:#c74232;
+  --yellow:#f3c74f;
+  --orange:#e58d35;
+  --brown:#6f4e37;
+  --line:#dfd4bd;
 }
-
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  background:var(--cream);
-  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 20px 20px,rgba(111,78,55,.035) 1px,transparent 1px) 0 0/26px 26px,
+    var(--cream);
   overflow-x:hidden;
 }
 
-/* FAJA CLAUSURA */
-
-.faja-clausura{
-  position:fixed;
-  top:70px;
-  left:-120px;
-  width:calc(100vw + 240px);
-  background:repeating-linear-gradient(
-    45deg,
-    #b91c1c 0,
-    #b91c1c 22px,
-    #7f1d1d 22px,
-    #7f1d1d 44px
-  );
-  color:white;
-  text-align:center;
-  font-size:38px;
-  font-weight:900;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  padding:18px 0;
-  transform:rotate(-8deg);
-  z-index:9998;
-  box-shadow:0 12px 35px rgba(0,0,0,.45);
-  border-top:6px solid white;
-  border-bottom:6px solid white;
-  text-shadow:2px 2px 0 rgba(0,0,0,.45);
+/* BANDERINES */
+.banderines{
+  position:absolute;
+  left:0;right:0;top:0;
+  display:flex;
+  justify-content:center;
+  gap:4px;
+  height:78px;
+  overflow:hidden;
+  z-index:4;
   pointer-events:none;
 }
-
-.faja-clausura span{
-  background:rgba(0,0,0,.28);
-  padding:8px 24px;
-  border-radius:8px;
+.bandera{
+  width:54px;
+  height:66px;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  box-shadow:0 5px 12px rgba(0,0,0,.12);
 }
+.bandera:nth-child(4n+1){background:var(--tomato)}
+.bandera:nth-child(4n+2){background:var(--yellow)}
+.bandera:nth-child(4n+3){background:var(--green2)}
+.bandera:nth-child(4n){background:var(--orange)}
 
 /* HERO */
-
 .hero{
-  min-height:520px;
-  background:
-    linear-gradient(120deg, rgba(23,107,55,.88), rgba(0,0,0,.35)),
-    url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80");
-  background-size:cover;
-  background-position:center;
+  min-height:650px;
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   color:white;
-  padding:50px 20px;
+  padding:120px 20px 70px;
+  background:
+    linear-gradient(120deg,rgba(20,84,48,.92),rgba(46,118,67,.72),rgba(50,35,20,.55)),
+    url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=85");
+  background-size:cover;
+  background-position:center;
+  overflow:hidden;
 }
-
-.hero-inner{
-  max-width:900px;
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:70px;
+  background:linear-gradient(to bottom,transparent,var(--cream));
 }
-
-.badge-top{
-  display:inline-block;
-  background:rgba(255,255,255,.15);
-  border:1px solid rgba(255,255,255,.35);
-  padding:10px 18px;
+.hero-inner{position:relative;z-index:3;max-width:980px}
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  background:#fff7cc;
+  color:#5b4511;
+  border:2px solid rgba(255,255,255,.65);
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+  padding:11px 18px;
   border-radius:999px;
-  margin-bottom:20px;
-  backdrop-filter:blur(10px);
-  font-weight:bold;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  transform:rotate(-1.3deg);
 }
-
 .hero h1{
-  font-size:68px;
-  margin:0;
-  line-height:1;
-  letter-spacing:-2px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(48px,8vw,88px);
+  line-height:.95;
+  margin:26px 0 14px;
+  text-shadow:0 4px 18px rgba(0,0,0,.28);
 }
-
 .hero h2{
-  margin-top:15px;
-  font-size:24px;
-  color:#e8f5e9;
-  font-weight:400;
+  margin:0 auto;
+  max-width:800px;
+  font-size:clamp(20px,3vw,29px);
+  font-weight:500;
+  line-height:1.35;
+  color:#f5ffe9;
 }
-
-.hero-buttons{
-  margin-top:30px;
+.reapertura{
+  display:inline-block;
+  margin-top:28px;
+  background:white;
+  color:var(--green);
+  border:4px double var(--green);
+  border-radius:10px;
+  padding:15px 22px;
+  font-weight:1000;
+  font-size:clamp(18px,2.5vw,28px);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  transform:rotate(1.6deg);
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
-
-button{
-  border:none;
+.hero-buttons{margin-top:30px}
+button,.btn{
+  border:0;
   padding:14px 22px;
-  border-radius:12px;
+  border-radius:13px;
   font-size:16px;
-  font-weight:bold;
+  font-weight:900;
   cursor:pointer;
   margin:6px;
-  transition:.2s;
+  transition:.18s ease;
+  box-shadow:0 7px 18px rgba(0,0,0,.13);
 }
+button:hover,.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--green);color:white}
+.secondary{background:var(--tomato);color:white}
+.tertiary{background:var(--yellow);color:#4c3a0b}
 
-.primary{
-  background:var(--green);
-  color:white;
+.container{max-width:1120px;margin:auto;padding:20px 18px 50px}
+.notice-strip{
+  margin:-18px auto 30px;
+  position:relative;
+  z-index:6;
+  max-width:920px;
+  background:#fff;
+  border:2px dashed var(--green2);
+  border-radius:18px;
+  padding:16px 18px;
+  text-align:center;
+  font-size:18px;
+  font-weight:800;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
-
-.primary:hover{
-  background:#0f4f28;
-}
-
-.secondary{
-  background:#7c2d12;
-  color:white;
-}
-
-.secondary:hover{
-  background:#431407;
-}
-
-/* CONTAINER */
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:35px 18px;
-}
-
 .card{
-  background:white;
+  background:rgba(255,255,255,.95);
+  border:1px solid #ece3d1;
   border-radius:24px;
   padding:28px;
   margin-bottom:24px;
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  box-shadow:0 12px 35px rgba(63,44,24,.08);
 }
-
 .card h3{
-  margin-top:0;
+  margin:0 0 16px;
   color:var(--green);
-  font-size:30px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:31px;
 }
-
-.card p{
-  font-size:18px;
-  line-height:1.6;
-}
-
-/* CONTADOR */
-
+.card p{font-size:18px;line-height:1.6}
 .visit{
   display:inline-block;
-  background:#111827;
-  color:#a7f3d0;
+  background:#26332b;
+  color:#c5f4d2;
   padding:10px 18px;
   border-radius:999px;
-  font-weight:bold;
-  margin-bottom:20px;
+  font-weight:900;
+  margin:6px auto 20px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13);
 }
-
-/* OFERTA */
 
 .random{
-  background:linear-gradient(135deg,#fff7ed,#fff);
-  border:1px solid #fed7aa;
+  background:linear-gradient(135deg,#fff4d7,#fff);
+  border:2px solid #f2d18a;
   text-align:center;
+  position:relative;
+  overflow:hidden;
 }
-
-.random small{
-  color:#ea580c;
-  font-weight:bold;
-  text-transform:uppercase;
+.random:before{
+  content:"OFERTA";
+  position:absolute;
+  top:18px;right:-35px;
+  transform:rotate(35deg);
+  background:var(--tomato);
+  color:white;
+  padding:7px 45px;
+  font-size:12px;
+  font-weight:1000;
   letter-spacing:1px;
 }
-
+.random small{color:#b45a19;font-weight:1000;text-transform:uppercase;letter-spacing:1px}
 #oferta{
   margin-top:14px;
   font-size:28px;
-  font-weight:800;
-  color:#7c2d12;
-  min-height:80px;
+  font-weight:900;
+  color:#6b3b15;
+  min-height:86px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
 }
 
-/* GRID */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.grid-2{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-}
-
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .item{
-  background:#f8fafc;
-  border:1px solid #e5e7eb;
+  background:#fff;
+  border:1px solid #e7ddc8;
   border-radius:18px;
   overflow:hidden;
+  box-shadow:0 7px 18px rgba(0,0,0,.045);
 }
+.item img{width:100%;height:220px;object-fit:cover;display:block}
+.item-content{padding:18px}
+.item h4{margin:0 0 8px;color:#14532d;font-size:19px}
+.item p{margin:0;color:#536057;font-size:16px}
 
-.item img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  display:block;
-}
-
-.item-content{
-  padding:18px;
-}
-
-.item h4{
-  margin:0 0 8px;
-  color:#14532d;
-}
-
-.item p{
-  margin:0;
-  color:#475569;
-  font-size:16px;
-}
-
-/* TESTIMONIOS */
-
-.testimonial{
-  background:#f8fafc;
+.testimonial,.mini-card{
+  background:#fbfaf5;
   border-left:5px solid var(--green2);
   padding:18px;
   border-radius:14px;
   text-align:left;
+  font-size:17px;
+  line-height:1.45;
 }
+.mini-card.yellow{border-left-color:var(--yellow)}
+.mini-card.red{border-left-color:var(--tomato)}
 
-/* CTA */
-
-.cta{
-  text-align:center;
-  background:linear-gradient(135deg,var(--green),var(--green2));
-  color:white;
+.stamp-zone{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:20px;
+  align-items:center;
 }
-
-.cta h3{
-  color:white;
-}
-
-.cta p{
-  color:#e8f5e9;
-}
-
-/* MODAL */
-
-.modal-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.58);
-  display:none;
+.stamp{
+  width:220px;
+  height:220px;
+  margin:auto;
+  border:8px double var(--green);
+  color:var(--green);
+  border-radius:50%;
+  display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  z-index:9999;
-  padding:20px;
-}
-
-.modal-box{
-  background:white;
-  width:100%;
-  max-width:560px;
-  border-radius:26px;
-  padding:34px;
   text-align:center;
-  box-shadow:0 22px 65px rgba(0,0,0,.28);
-  animation:aparecer .25s ease;
-}
-
-.modal-icon{
-  font-size:46px;
-  margin-bottom:12px;
-}
-
-#textoModal{
-  font-size:22px;
-  line-height:1.45;
-  margin:0 0 24px;
-  color:#1f2933;
-}
-
-.clausura-titulo{
-  color:#b91c1c;
-  font-size:28px;
-  font-weight:900;
-  margin-bottom:12px;
+  font-weight:1000;
   text-transform:uppercase;
+  transform:rotate(-8deg);
+  background:#f8fff8;
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
 }
+.stamp .ok{font-size:42px;line-height:1}
+.stamp small{font-size:12px;margin-top:6px;letter-spacing:1px}
 
-.clausura-causa{
-  background:#fff7ed;
-  border:1px solid #fed7aa;
-  color:#7c2d12;
-  padding:16px;
-  border-radius:16px;
-  font-size:20px;
-  font-weight:800;
-  margin-top:18px;
+.timeline{display:grid;gap:12px}
+.timeline .step{
+  padding:15px 16px;
+  border-radius:14px;
+  background:#f8fbf7;
+  border:1px solid #deeadf;
+  font-size:17px;
 }
+.timeline .step strong{color:var(--green)}
 
+.cta{text-align:center;background:linear-gradient(135deg,var(--green),var(--green2));color:white}
+.cta h3{color:white}.cta p{color:#ebffef}
+
+/* MODAL */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;
+  align-items:center;justify-content:center;z-index:9999;padding:20px
+}
+.modal-box{
+  background:#fffef9;width:100%;max-width:590px;border-radius:28px;padding:34px;
+  text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.35);animation:aparecer .25s ease;
+  border:3px solid #ecdfc4
+}
+.modal-icon{font-size:52px;margin-bottom:10px}
+#textoModal{font-size:21px;line-height:1.5;margin:0 0 24px;color:#243228}
+.modal-title{font-size:28px;font-weight:1000;color:var(--green);text-transform:uppercase;margin-bottom:12px}
+.modal-note{
+  margin-top:16px;background:#fff3c8;border:1px solid #efd177;color:#614e13;
+  padding:15px;border-radius:15px;font-weight:800
+}
 .loader{
-  width:46px;
-  height:46px;
-  border:5px solid #e5e7eb;
-  border-top:5px solid var(--green);
-  border-radius:50%;
-  animation:girar .9s linear infinite;
-  margin:18px auto 22px;
-  display:none;
+  width:46px;height:46px;border:5px solid #e5e7eb;border-top:5px solid var(--green);
+  border-radius:50%;animation:girar .9s linear infinite;margin:18px auto 22px;display:none
 }
+@keyframes girar{to{transform:rotate(360deg)}}
+@keyframes aparecer{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
 
-@keyframes girar{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-@keyframes aparecer{
-  from{
-    transform:scale(.92);
-    opacity:0;
-  }
-  to{
-    transform:scale(1);
-    opacity:1;
-  }
-}
-
-
-/* GISCUS TABLON */
-
-.giscus{
-  margin-top:20px;
-}
-
-.giscus-frame{
-  width:100%;
-}
-
-/* FOOTER */
-
-footer{
-  text-align:center;
-  padding:40px 20px;
-  color:#64748b;
-  font-size:14px;
-}
-
-/* MOBILE */
+.giscus{margin-top:20px}.giscus-frame{width:100%}
+footer{text-align:center;padding:42px 20px;color:#786e5c;font-size:14px}
+.footer-badge{display:inline-block;margin-top:8px;padding:7px 11px;background:#efe6d2;border-radius:999px}
 
 @media(max-width:900px){
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .hero h1{
-    font-size:50px;
-  }
-
-  .faja-clausura{
-    top:90px;
-    font-size:28px;
-  }
-
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .stamp-zone{grid-template-columns:1fr}
 }
-
 @media(max-width:650px){
-
-  .grid,
-  .grid-2{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    min-height:420px;
-  }
-
-  .hero h1{
-    font-size:40px;
-  }
-
-  .hero h2{
-    font-size:20px;
-  }
-
-  #oferta{
-    font-size:22px;
-  }
-
-  .faja-clausura{
-    top:80px;
-    font-size:20px;
-    letter-spacing:2px;
-    padding:13px 0;
-  }
-
+  .grid,.grid-2{grid-template-columns:1fr}
+  .hero{min-height:590px;padding-top:115px}
+  #oferta{font-size:22px}
+  .card{padding:22px}
+  .stamp{width:185px;height:185px}
+  .bandera{width:42px;height:54px}
 }
-
 </style>
 </head>
-
 <body>
 
-<div class="faja-clausura">
-  <span>CLAUSURADO POR ANMAT</span>
-</div>
-
 <section class="hero">
+  <div class="banderines" aria-hidden="true">
+    <span class="bandera"></span><span class="bandera"></span><span class="bandera"></span><span class="bandera"></span>
+    <span class="bandera"></span><span class="bandera"></span><span class="bandera"></span><span class="bandera"></span>
+    <span class="bandera"></span><span class="bandera"></span><span class="bandera"></span><span class="bandera"></span>
+    <span class="bandera"></span><span class="bandera"></span><span class="bandera"></span><span class="bandera"></span>
+    <span class="bandera"></span><span class="bandera"></span>
+  </div>
 
-<div class="hero-inner">
+  <div class="hero-inner">
+    <div class="kicker">🥕 Verdulería de barrio · Morón</div>
+    <h1>Verduras y Algo Más</h1>
+    <h2>Frutas, verduras y una capacidad admirable para volver a abrir la persiana.</h2>
+    <div class="reapertura">✅ HABILITADOS NUEVAMENTE</div>
 
-<div class="badge-top">
-Verdulería de barrio · Morón
-</div>
-
-<h1>Verduras y Algo Más</h1>
-
-<h2>
-No preguntar. Solo elegir, pagar y seguir con tu vida.
-</h2>
-
-<div class="hero-buttons">
-
-<button class="primary" onclick="nuevaOferta()">
-Ver oferta random
-</button>
-
-<button class="secondary" onclick="encargado()">
-Hablar con el encargado
-</button>
-
-</div>
-
-</div>
-
+    <div class="hero-buttons">
+      <button class="primary" onclick="nuevaOferta()">Ver oferta random</button>
+      <button class="secondary" onclick="encargado()">Hablar con el encargado</button>
+      <button class="tertiary" onclick="abrirReapertura()">Ver comunicado oficialísimo</button>
+    </div>
+  </div>
 </section>
 
 <div class="container">
 
-<center>
-<div class="visit" id="contador">
-VISITANTE N° 000000
-</div>
-</center>
-
-<div class="card random">
-
-<small>Oferta random del momento</small>
-
-<div id="oferta">
-Cargando oferta...
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Bienvenidos</h3>
-
-<p>
-Somos una verdulería de barrio en Morón con frutas y verduras frescas,
-atención directa y precios razonables.
-</p>
-
-<p>
-También tenemos “algo más”, pero preferimos no desarrollar ese punto por escrito.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Especialidades de la casa</h3>
-
-<div class="grid">
-
-<div class="item">
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg">
-<div class="item-content">
-<h4>🥔 Papa con tierra emocional</h4>
-<p>Noble, rendidora y con pasado.</p>
-</div>
-</div>
-
-<div class="item">
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg">
-<div class="item-content">
-<h4>🍌 Banana con actitud</h4>
-<p>Maduración variable. Como la gente.</p>
-</div>
-</div>
-
-<div class="item">
-<img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Avocado_Hass_-_single_and_halved.jpg">
-<div class="item-content">
-<h4>🥑 Palta con custodia</h4>
-<p>Se mira, se paga, no se toca.</p>
-</div>
-</div>
-
-<div class="item">
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg">
-<div class="item-content">
-<h4>🍅 Tomate sensible</h4>
-<p>Rojo, intenso y medio dramático.</p>
-</div>
-</div>
-
-<div class="item">
-<img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?auto=format&fit=crop&w=900&q=80">
-<div class="item-content">
-<h4>🥬 Lechuga para decisiones livianas</h4>
-<p>Ideal para ensaladas y culpas.</p>
-</div>
-</div>
-
-<div class="item">
-<img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Aubergine.jpg">
-<div class="item-content">
-<h4>🍆 Berenjena reservada</h4>
-<p>No sabemos qué hacés con ella. No preguntamos.</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Información importante</h3>
-
-<p>⚠️ No fiamos.</p>
-<p>⚠️ No insistir.</p>
-<p>⚠️ No preguntar por “algo más”.</p>
-<p>⚠️ Si hay gente esperando, decidir rápido.</p>
-<p>⚠️ Algunas consultas requieren hablar con el encargado general.</p>
-<p>⚠️ Habilitación municipal en trámite permanente.</p>
-<p>⚠️ Temas ANMAT: mejor no entrar en detalles.</p>
-<p>⚠️ Facturación: en etapa experimental.</p>
-
-</div>
-
-<div class="card">
-
-<h3>Promociones especiales</h3>
-
-<div class="grid-2">
-
-<div class="testimonial">
-🧺 <strong>Bolsón sorpresa</strong><br>
-Ideal para gente sin miedo y con heladera amplia.
-</div>
-
-<div class="testimonial">
-🥕 <strong>Combo ensalada triste</strong><br>
-Lechuga, tomate y resignación.
-</div>
-
-<div class="testimonial">
-🧄 <strong>Kit anti visitas</strong><br>
-Ajo, cebolla y actitud distante.
-</div>
-
-<div class="testimonial">
-🍉 <strong>Sandía familiar</strong><br>
-Incluye discusión sobre quién la carga.
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Preguntas frecuentes</h3>
-
-<div class="grid-2">
-
-<div class="testimonial">
-<strong>¿Hacen envíos?</strong><br>
-Depende de la distancia y del clima interno.
-</div>
-
-<div class="testimonial">
-<strong>¿Aceptan Mercado Pago?</strong><br>
-Sí, pero el encargado suspira.
-</div>
-
-<div class="testimonial">
-<strong>¿La palta está madura?</strong><br>
-Está atravesando un proceso.
-</div>
-
-<div class="testimonial">
-<strong>¿Qué es “algo más”?</strong><br>
-No corresponde informar por esta vía.
-</div>
-
-</div>
-
-</div>
-
-
-<!-- TABLON DE MENSAJES -->
-
-<div class="card">
-
-<h3>📌 Tablón de mensajes</h3>
-
-<p>
-Dejá tu mensaje para la verdulería.
-El encargado promete leerlo eventualmente, salvo que esté negociando con una berenjena.
-</p>
-
-<div style="
-background:#f8fafc;
-border:1px solid #e5e7eb;
-border-radius:18px;
-padding:18px;
-margin-top:18px;
-">
-
-<p style="
-margin-top:0;
-font-weight:bold;
-color:#14532d;
-">
-Libro oficial de visitas, denuncias,
-teorías conspirativas y observaciones sobre las paltas.
-</p>
-
-<div class="giscus"></div>
-
-</div>
-
-<script src="https://giscus.app/client.js"
-        data-repo="mentor17/pagina"
-        data-repo-id="R_kgDOR5ouZA"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOR5ouZM4C-2RL"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="es"
-        crossorigin="anonymous"
-        async>
-</script>
-
-</div>
-
-
-<div class="card">
-
-<h3>Testimonios</h3>
-
-<div class="grid-2">
-
-<div class="testimonial">
-“Fui por papas. Salí con dudas, pero conforme.”
-</div>
-
-<div class="testimonial">
-“La mercadería impecable. Las respuestas, escasas.”
-</div>
-
-<div class="testimonial">
-“No pregunté nada y me atendieron perfecto.”
-</div>
-
-<div class="testimonial">
-“El bolsón sorpresa me cambió la semana. No sé si para bien.”
-</div>
-
-</div>
-
-</div>
-
-<div class="card cta">
-
-<h3>Consultas especiales</h3>
-
-<p>
-Para temas sensibles, discretos o mayoristas,
-hablar con el encargado.
-</p>
-
-<button class="primary" onclick="encargado()">
-Hablar con el encargado
-</button>
-
-<button class="secondary" onclick="preciosMayoristas()">
-Ver precios mayoristas
-</button>
-
-</div>
+  <div class="notice-strip">
+    🎉 GRAN REAPERTURA: volvió la verdulería. Las papas están emocionadas y el encargado ya encontró el sello.
+  </div>
+
+  <center><div class="visit" id="contador">VISITANTE N° 000000</div></center>
+
+  <div class="card random">
+    <small>Oferta random del momento</small>
+    <div id="oferta">Cargando oferta...</div>
+  </div>
+
+  <div class="card">
+    <div class="stamp-zone">
+      <div>
+        <h3>Volvimos a abrir</h3>
+        <p>Después de una temporada en la que la persiana tuvo más protagonismo que la lechuga, podemos anunciar que la verdulería está nuevamente habilitada.</p>
+        <p>No sabemos si fue por los formularios, los sellos, la alineación de los planetas o porque finalmente alguien encontró la birome azul correcta. Lo importante es que <strong>la berenjena vuelve a circular libremente</strong>.</p>
+        <p>Pedimos al público mantener la calma: hay papa para todos.</p>
+      </div>
+
+      <div class="stamp">
+        <div class="ok">✓</div>
+        Habilitado<br>nuevamente
+        <small>no preguntar demasiado</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Comunicado de reapertura</h3>
+    <div class="timeline">
+      <div class="step"><strong>Etapa 1:</strong> localizar el sello.</div>
+      <div class="step"><strong>Etapa 2:</strong> localizar a la persona que sabía dónde estaba el sello.</div>
+      <div class="step"><strong>Etapa 3:</strong> firmar cosas con cara de absoluta comprensión.</div>
+      <div class="step"><strong>Etapa 4:</strong> asentir seriamente durante varios minutos.</div>
+      <div class="step"><strong>Etapa 5:</strong> levantar la persiana y actuar como si todo hubiera sido parte del plan.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Especialidades de la casa</h3>
+    <div class="grid">
+      <div class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg" alt="Papas">
+        <div class="item-content"><h4>🥔 Papa rehabilitada</h4><p>Volvió al circuito comercial y no quiere hablar del pasado.</p></div>
+      </div>
+      <div class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Banana">
+        <div class="item-content"><h4>🍌 Banana reincorporada</h4><p>Maduración variable. Documentación emocional completa.</p></div>
+      </div>
+      <div class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Avocado_Hass_-_single_and_halved.jpg" alt="Palta">
+        <div class="item-content"><h4>🥑 Palta con aval administrativo</h4><p>Se mira, se paga y ahora además se encuentra debidamente habilitada para existir.</p></div>
+      </div>
+      <div class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg" alt="Tomate">
+        <div class="item-content"><h4>🍅 Tomate regularizado</h4><p>Rojo, intenso y con papeles en una carpeta transparente.</p></div>
+      </div>
+      <div class="item">
+        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?auto=format&fit=crop&w=900&q=80" alt="Lechuga">
+        <div class="item-content"><h4>🥬 Lechuga reincidente</h4><p>Volvió fresca, crocante y con una sorprendente confianza institucional.</p></div>
+      </div>
+      <div class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Aubergine.jpg" alt="Berenjena">
+        <div class="item-content"><h4>🍆 Berenjena liberada</h4><p>Puede circular. No preguntes quién firmó.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Novedades de la reapertura</h3>
+    <div class="grid-2">
+      <div class="mini-card">✅ La persiana sube con normalidad y sin necesidad de testigos.</div>
+      <div class="mini-card yellow">📎 El encargado consiguió una carpeta con folios. La situación está bajo control.</div>
+      <div class="mini-card red">🍅 Los tomates volvieron a exhibirse sin acompañamiento psicológico.</div>
+      <div class="mini-card">🧾 Ya podemos imprimir papeles que parecen tremendamente importantes.</div>
+      <div class="mini-card yellow">🥑 Las paltas fueron notificadas de la reapertura y mantienen una cauta expectativa.</div>
+      <div class="mini-card red">🖊️ Hay una birome encadenada al mostrador. Nadie sabe por qué, pero inspira confianza.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Información importante</h3>
+    <p>⚠️ No fiamos. Haber vuelto no nos volvió imprudentes.</p>
+    <p>⚠️ No preguntar cuántas firmas hicieron falta.</p>
+    <p>⚠️ No preguntar qué significa exactamente “algo más”.</p>
+    <p>⚠️ Si escucha una abrochadora trabajando intensamente, mantenga la calma.</p>
+    <p>⚠️ Algunas respuestas pueden requerir consultar al encargado general, al subencargado o a una berenjena con antigüedad.</p>
+    <p>⚠️ Los papeles están guardados en un lugar seguro. Creemos.</p>
+    <p>⚠️ La palabra “trámite” puede generar miradas largas hacia el horizonte.</p>
+  </div>
+
+  <div class="card">
+    <h3>Promociones de reapertura</h3>
+    <div class="grid-2">
+      <div class="testimonial">🎊 <strong>Bolsón “Volvimos”</strong><br>Trae verduras seleccionadas y una sensación inexplicable de segunda temporada.</div>
+      <div class="testimonial">📄 <strong>Combo Administrativo</strong><br>Lechuga, tomate y una hoja A4 que no sirve para nada, pero queda seria.</div>
+      <div class="testimonial">🧄 <strong>Kit anti inspección emocional</strong><br>Ajo, cebolla y mirada de “todo está en regla”.</div>
+      <div class="testimonial">🍉 <strong>Sandía habilitada</strong><br>Más pesada que una carpeta con 200 folios.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Preguntas frecuentes</h3>
+    <div class="grid-2">
+      <div class="testimonial"><strong>¿Están abiertos?</strong><br>Sí. Aprovechá antes de que alguien encuentre otro formulario.</div>
+      <div class="testimonial"><strong>¿Aceptan Mercado Pago?</strong><br>Sí, aunque el encargado sigue mirando el QR con desconfianza.</div>
+      <div class="testimonial"><strong>¿La palta está madura?</strong><br>Está atravesando un proceso correctamente documentado.</div>
+      <div class="testimonial"><strong>¿Qué es “algo más”?</strong><br>La reapertura no modificó nuestra política de silencio.</div>
+      <div class="testimonial"><strong>¿Tienen todo en regla?</strong><br>Tenemos una carpeta. Es un excelente comienzo.</div>
+      <div class="testimonial"><strong>¿Por qué tantos banderines?</strong><br>Porque una reapertura sin banderines sería apenas abrir.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📌 Tablón de mensajes</h3>
+    <p>Dejá tu mensaje para la verdulería. El encargado promete leerlo cuando termine de ordenar papeles por color.</p>
+    <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:18px;padding:18px;margin-top:18px;">
+      <p style="margin-top:0;font-weight:bold;color:#14532d;">Libro oficial de visitas, teorías, observaciones sobre las paltas y felicitaciones por haber encontrado el sello.</p>
+      <div class="giscus"></div>
+    </div>
+    <script src="https://giscus.app/client.js"
+            data-repo="mentor17/pagina"
+            data-repo-id="R_kgDOR5ouZA"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOR5ouZM4C-2RL"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="es"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+
+  <div class="card">
+    <h3>Testimonios</h3>
+    <div class="grid-2">
+      <div class="testimonial">“Fui a ver si realmente habían vuelto. Compré dos kilos de papa por compromiso.”</div>
+      <div class="testimonial">“Muchos banderines. Pocas explicaciones. Excelente experiencia.”</div>
+      <div class="testimonial">“Pregunté quién había firmado la reapertura. Me ofrecieron mandarinas.”</div>
+      <div class="testimonial">“La berenjena se veía libre. Me emocioné.”</div>
+    </div>
+  </div>
+
+  <div class="card cta">
+    <h3>Consultas especiales</h3>
+    <p>Para temas sensibles, mayoristas, burocráticos o preguntas que empiecen con “¿pero cómo...?”, hablar con el encargado.</p>
+    <button class="tertiary" onclick="encargado()">Hablar con el encargado</button>
+    <button class="secondary" onclick="preciosMayoristas()">Ver precios mayoristas</button>
+  </div>
 
 </div>
 
 <footer>
-© 2026 Verduras y Algo Más – Morón 🍆
+  © 2026 Verduras y Algo Más – Morón 🥕
+  <div class="footer-badge">Sitio satírico · Las verduras no fueron consultadas</div>
 </footer>
 
-<div id="modalEncargado" class="modal-bg">
-
-<div class="modal-box">
-
-<div class="modal-icon" id="iconoModal">🥬</div>
-
-<div class="loader" id="loaderModal"></div>
-
-<div id="textoModal">
-Cargando...
-</div>
-
-<button class="primary" onclick="cerrarModal()">
-Entendido
-</button>
-
-</div>
-
+<div id="modalEncargado" class="modal-bg" onclick="cerrarPorFondo(event)">
+  <div class="modal-box">
+    <div class="modal-icon" id="iconoModal">🥬</div>
+    <div class="loader" id="loaderModal"></div>
+    <div id="textoModal">Cargando...</div>
+    <button class="primary" onclick="cerrarModal()">Entendido</button>
+  </div>
 </div>
 
 <script>
-
 const ofertas = [
-"Limones más ácidos que el grupo de WhatsApp de las mamis. $XXX el kilo.",
-"Llevate estas cebollas para llorar por algo que valga la pena y no por tu ex. $XXX el kilo.",
-"Peras maduras: como vos, pero estas sí están buenas. $XXX el kilo.",
-"Bananas con más potasio que ganas de trabajar. $XXX el kilo.",
-"Ajos frescos: ideales para mantener lejos a los vampiros y a los vecinos pesados. $XXX la unidad.",
-"Zapallos tan grandes que si los hacés puré, alimentás a todo el barrio. $XXX el kilo.",
-"Naranjas dulces: la media naranja que te falta y no te va a engañar. $XXX el kilo.",
-"Papas más sucias que tu conciencia, pero con un buen lavado quedan joya. $XXX el kilo.",
-"Sandías tan pesadas como el cuñado que se queda a dormir. $XXX el kilo.",
-"Acelgas bien verdes, como el dólar pero legales. $XXX el paquete.",
-"Uvas sin semilla: para que no andes escupiendo como un carancho. $XXX el kilo.",
-"Morrones rojos: tan caros que te los damos con seguro de vida. $XXX la unidad.",
-"Manzanas más tentadoras que el aguinaldo recién cobrado. $XXX el kilo.",
-"Pepinos: para ensalada o para las ojeras de tanto salir de joda. $XXX el kilo.",
-"Batatas dulces: más tiernas que video de gatitos. $XXX el kilo.",
-"Zanahorias: para que veas mejor la realidad, aunque duela. $XXX el kilo."
+  "Limones más ácidos que una reunión administrativa. $XXX el kilo.",
+  "Cebollas para llorar de alegría por la reapertura. $XXX el kilo.",
+  "Peras maduras: con más estabilidad que cualquier trámite. $XXX el kilo.",
+  "Bananas con más potasio que ganas de llenar formularios. $XXX el kilo.",
+  "Ajos frescos: ideales para mantener lejos vampiros, mosquitos y gestores. $XXX la unidad.",
+  "Zapallos tan grandes que requieren casi tanta documentación como una reapertura. $XXX el kilo.",
+  "Naranjas dulces: no necesitan sello, firma ni fotocopia. $XXX el kilo.",
+  "Papas más sucias que una carpeta vieja, pero con un buen lavado quedan joya. $XXX el kilo.",
+  "Sandías tan pesadas como un expediente completo. $XXX el kilo.",
+  "Acelgas verdes y oficialmente optimistas. $XXX el paquete.",
+  "Uvas sin semilla y sin observaciones pendientes. $XXX el kilo.",
+  "Morrones rojos: caros, elegantes y aparentemente en regla. $XXX la unidad.",
+  "Manzanas tentadoras: habilitadas para consumo inmediato. $XXX el kilo.",
+  "Pepinos: para ensalada, ojeras o reuniones demasiado largas. $XXX el kilo.",
+  "Batatas dulces: más tiernas que el discurso de reapertura. $XXX el kilo.",
+  "Zanahorias: mejoran la vista, especialmente para leer la letra chica. $XXX el kilo."
 ];
 
-const causasClausura = [
-"Encontraron papas con brotes psicóticos.",
-"Una berenjena declaró bajo presión y complicó a todo el cajón.",
-"Había una palta madurando sin autorización sanitaria.",
-"Detectaron una cebolla haciendo llorar sin consentimiento informado.",
-"El zapallo no pudo justificar su tamaño ante la inspección.",
-"La lechuga presentó actitud sospechosamente relajada.",
-"Un melón intentó darse a la fuga rodando hacia la vereda.",
-"Había tomates demasiado sensibles para exposición pública.",
-"Se encontró una banana con doble personalidad y maduración dudosa.",
-"El ajo fue acusado de generar aislamiento social preventivo.",
-"Las zanahorias prometían mejorar la vista sin respaldo científico.",
-"Una sandía tenía más peso emocional que trazabilidad.",
-"El bolsón sorpresa sorprendió incluso al inspector.",
-"Los morrones cotizaban como joyería fina sin estar registrados.",
-"El encargado respondió 'no sé, preguntale a la berenjena' durante la inspección."
+const motivosReapertura = [
+  "La berenjena presentó la documentación que nadie le había pedido.",
+  "Apareció el sello correcto en el tercer cajón del escritorio.",
+  "La palta completó su proceso de maduración administrativa.",
+  "Una carpeta fue cerrada con una gomita y eso transmitió mucha confianza.",
+  "El encargado dijo 'listo' con suficiente seguridad.",
+  "Se encontraron tres copias del mismo papel. Evidentemente era importante.",
+  "La lechuga dejó constancia de que no tiene observaciones.",
+  "La banana firmó donde decía 'firma del interesado'. Nadie quiso discutirlo.",
+  "El tomate presentó fotocopia y original para cotejo.",
+  "La sandía consiguió un folio del tamaño adecuado.",
+  "El zapallo fue visto saliendo de una oficina con expresión de alivio.",
+  "Un sello hizo 'clac' y todos asumieron que era una buena noticia."
 ];
 
 function precio(){
@@ -819,121 +571,83 @@ function contador(){
   document.getElementById("contador").innerText="VISITANTE N° "+n;
 }
 
-function abrirClausura(){
-  const modal = document.getElementById("modalEncargado");
-  const texto = document.getElementById("textoModal");
-  const loader = document.getElementById("loaderModal");
-  const icono = document.getElementById("iconoModal");
-
-  const causa = causasClausura[Math.floor(Math.random()*causasClausura.length)];
-
-  icono.innerText = "🚫";
-
-  modal.style.display = "flex";
-
-  loader.style.display = "block";
-
-  texto.innerHTML = `
-    <div class="clausura-titulo">Clausurado por ANMAT</div>
-    <div>Disculpe las molestias. Estamos clausurados hasta nuevo aviso.</div>
-  `;
-
-  setTimeout(() => {
-    loader.style.display = "none";
-
-    texto.innerHTML = `
-      <div class="clausura-titulo">Clausurado por ANMAT</div>
-      <div>Disculpe las molestias. Estamos clausurados hasta nuevo aviso.</div>
-      <div class="clausura-causa">Causa probable: ${causa}</div>
-    `;
-  }, 1300);
+function prepararModal(icono,textoInicial){
+  const modal=document.getElementById("modalEncargado");
+  const texto=document.getElementById("textoModal");
+  const loader=document.getElementById("loaderModal");
+  document.getElementById("iconoModal").innerText=icono;
+  modal.style.display="flex";
+  texto.innerHTML=textoInicial;
+  loader.style.display="block";
+  return {texto,loader};
 }
 
-/* ENCARGADO */
+function abrirReapertura(){
+  const motivo=motivosReapertura[Math.floor(Math.random()*motivosReapertura.length)];
+  const {texto,loader}=prepararModal("✅","Verificando habilitación...");
+  setTimeout(()=>{
+    loader.style.display="none";
+    texto.innerHTML=`
+      <div class="modal-title">Habilitados nuevamente</div>
+      <div>La persiana está arriba, las verduras están acomodadas y el encargado intenta parecer tranquilo.</div>
+      <div class="modal-note">Dato administrativo del día: ${motivo}</div>
+    `;
+  },1100);
+}
 
 function encargado(){
-
   const mensajes=[
-    "El encargado está acomodando papas por orden emocional.",
-    "El encargado salió a buscar una palta madura y todavía no volvió.",
-    "Tu consulta fue derivada al sector berenjenas sensibles.",
-    "El encargado está en una reunión estratégica con una cebolla.",
-    "En este momento el encargado está evitando responsabilidades.",
-    "El encargado pidió no ser molestado hasta nuevo aviso.",
-    "Tu consulta es importante para nosotros, lamentablemente no para el encargado.",
-    "El encargado está recalculando decisiones de vida.",
-    "El encargado se fue a tomar aire después de una discusión por un melón.",
-    "El encargado detectó demasiadas preguntas en la consulta."
+    "El encargado está ordenando papeles por nivel de importancia aparente.",
+    "El encargado salió a buscar una birome que funcione.",
+    "Tu consulta fue derivada al sector berenjenas habilitadas.",
+    "El encargado está en una reunión estratégica con una carpeta oficio.",
+    "El encargado pidió cinco minutos para ponerse cara de trámite.",
+    "Tu consulta es importante para nosotros. Para el encargado todavía está en análisis.",
+    "El encargado está celebrando la reapertura con una mandarina.",
+    "El encargado está practicando la frase 'está todo en orden'.",
+    "El encargado detectó demasiadas preguntas en la consulta.",
+    "El encargado está verificando si el sello necesita tinta."
   ];
-
-  const modal = document.getElementById("modalEncargado");
-  const texto = document.getElementById("textoModal");
-  const loader = document.getElementById("loaderModal");
-  const icono = document.getElementById("iconoModal");
-
-  icono.innerText = "🥬";
-
-  modal.style.display = "flex";
-
-  texto.innerHTML = "Cargando solicitud...";
-  loader.style.display = "block";
-
-  setTimeout(() => {
-    loader.style.display = "none";
-    texto.innerHTML = mensajes[Math.floor(Math.random()*mensajes.length)];
-  }, 1800);
-
+  const {texto,loader}=prepararModal("🥬","Cargando solicitud...");
+  setTimeout(()=>{
+    loader.style.display="none";
+    texto.innerHTML=mensajes[Math.floor(Math.random()*mensajes.length)];
+  },1400);
 }
 
-/* MAYORISTA */
-
 function preciosMayoristas(){
-
   const mensajes=[
     "Los precios mayoristas se informan únicamente después de una mirada seria.",
     "Para acceder a precios mayoristas necesitás mínimo cara de almacenero.",
-    "El listado mayorista está siendo plastificado.",
-    "El encargado mayorista salió a comprar cambio.",
-    "Tu solicitud fue enviada al departamento de cajones sospechosos.",
-    "Los precios mayoristas dependen del humor general del mercado y del encargado.",
+    "El listado mayorista está siendo sellado por motivos puramente estéticos.",
+    "El encargado mayorista salió a sacar una fotocopia.",
+    "Tu solicitud fue enviada al departamento de cajones habilitados.",
+    "Los precios mayoristas dependen del mercado, del clima y de la expresión facial del encargado.",
     "Para ver precios mayoristas tenés que demostrar compromiso con la berenjena.",
     "El sistema detectó demasiada curiosidad para habilitar precios mayoristas.",
     "Los precios mayoristas se desbloquean después de comprar 14 kilos de papa.",
-    "El sector mayorista está temporalmente tomado por una discusión sobre melones."
+    "El sector mayorista está temporalmente ocupado festejando la reapertura."
   ];
-
-  const modal = document.getElementById("modalEncargado");
-  const texto = document.getElementById("textoModal");
-  const loader = document.getElementById("loaderModal");
-  const icono = document.getElementById("iconoModal");
-
-  icono.innerText = "🥔";
-
-  modal.style.display = "flex";
-
-  texto.innerHTML = "Consultando precios mayoristas...";
-  loader.style.display = "block";
-
-  setTimeout(() => {
-    loader.style.display = "none";
-    texto.innerHTML = mensajes[Math.floor(Math.random()*mensajes.length)];
-  }, 1900);
-
+  const {texto,loader}=prepararModal("🥔","Consultando precios mayoristas...");
+  setTimeout(()=>{
+    loader.style.display="none";
+    texto.innerHTML=mensajes[Math.floor(Math.random()*mensajes.length)];
+  },1500);
 }
 
 function cerrarModal(){
-  document.getElementById("modalEncargado").style.display = "none";
+  document.getElementById("modalEncargado").style.display="none";
 }
+function cerrarPorFondo(e){
+  if(e.target.id==="modalEncargado") cerrarModal();
+}
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrarModal();});
 
 contador();
 nuevaOferta();
-
-setInterval(nuevaOferta,5000);
-
-window.addEventListener("load", () => {
-  setTimeout(abrirClausura, 700);
-});
-
+setInterval(nuevaOferta,6000);
+window.addEventListener("load",()=>{setTimeout(abrirReapertura,700);});
 </script>
 
 </body>
