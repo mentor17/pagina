@@ -309,11 +309,45 @@ button:hover,.btn:hover{transform:translateY(-2px)}
 footer{text-align:center;padding:42px 20px;color:#786e5c;font-size:14px}
 .footer-badge{display:inline-block;margin-top:8px;padding:7px 11px;background:#efe6d2;border-radius:999px}
 
+/* FAJA SATIRICA */
+.faja-verdura{
+  position:fixed;
+  top:58px;
+  right:-150px;
+  width:560px;
+  padding:18px 38px;
+  background:linear-gradient(135deg,#c74232,#8f261d);
+  color:#fff;
+  text-align:center;
+  font-size:22px;
+  line-height:1.18;
+  font-weight:1000;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  transform:rotate(34deg);
+  transform-origin:center;
+  z-index:9998;
+  border-top:4px solid rgba(255,255,255,.55);
+  border-bottom:4px solid rgba(255,255,255,.55);
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+  text-shadow:1px 2px 0 rgba(0,0,0,.28);
+  pointer-events:none;
+}
+.faja-verdura::before,
+.faja-verdura::after{
+  content:"🥕";
+  display:inline-block;
+  margin:0 8px;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.2));
+}
+
 @media(max-width:900px){
   .grid{grid-template-columns:repeat(2,1fr)}
   .stamp-zone{grid-template-columns:1fr}
+  .faja-verdura{top:62px;right:-165px;width:520px;font-size:18px;padding:15px 34px}
 }
 @media(max-width:650px){
+  .faja-verdura{top:58px;right:-152px;width:430px;font-size:14px;letter-spacing:.7px;padding:12px 24px;transform:rotate(36deg)}
   .grid,.grid-2{grid-template-columns:1fr}
   .hero{min-height:590px;padding-top:115px}
   #oferta{font-size:22px}
@@ -324,6 +358,8 @@ footer{text-align:center;padding:42px 20px;color:#786e5c;font-size:14px}
 </style>
 </head>
 <body>
+
+<div class="faja-verdura" aria-label="Como siempre, te vendemos cualquier verdura">Como siempre, te vendemos cualquier verdura</div>
 
 <section class="hero">
   <div class="banderines" aria-hidden="true">
@@ -509,7 +545,7 @@ footer{text-align:center;padding:42px 20px;color:#786e5c;font-size:14px}
 
 <footer>
   © 2026 Verduras y Algo Más – Morón 🥕
-  <div class="footer-badge">Sitio Oficial · Las verduras no fueron consultadas</div>
+  <div class="footer-badge">Sitio oficial · Las verduras no fueron consultadas</div>
 </footer>
 
 <div id="modalEncargado" class="modal-bg" onclick="cerrarPorFondo(event)">
