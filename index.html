@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verduras y Algo Más – Morón</title>
-<meta name="description" content="Verdulería ficticia en Morón. Humor, verduras con personalidad, promociones absurdas y Packs de verdura.">
+<meta name="description" content="Verdulería ficticia en Morón. Humor, verduras con personalidad, promociones absurdas, Packs de verdura y un juego para matar el tiempo.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E🥕%3C/text%3E%3C/svg%3E">
 
 <style>
@@ -387,6 +387,56 @@ details p{margin-bottom:0;font-size:16px!important}
 .cta h3{color:white}
 .cta p{color:#ebffef}
 
+/* JUEGO */
+.juego{background:linear-gradient(135deg,#eff9ec,#fff9e8)}
+.juego-marcador{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin:18px 0;
+}
+.juego-marcador span{
+  background:#175c36;
+  color:white;
+  padding:10px 15px;
+  border-radius:12px;
+  font-weight:800;
+}
+#huerta{
+  display:block;
+  width:100%;
+  height:300px;
+  border:2px solid #175c36;
+  border-radius:16px;
+  touch-action:pan-y;
+  background:#e9f7ff;
+}
+#huerta:focus-visible{
+  outline:4px solid #e58d35;
+  outline-offset:4px;
+}
+.juego-controles{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+}
+.juego-controles button{
+  margin:0;
+  min-height:48px;
+  touch-action:manipulation;
+}
+#salto{
+  flex:1;
+  min-width:150px;
+  touch-action:none;
+}
+.juego-controles button:disabled{
+  opacity:.5;
+  cursor:default;
+}
+#estadoJuego{min-height:3em;font-weight:700}
+
 /* DIÁLOGO */
 dialog{
   background:#fffef9;
@@ -744,6 +794,52 @@ footer{
     </p>
   </section>
 
+  <!-- JUEGO: DEBAJO DE LOS PACKS -->
+  <section class="card juego" id="juego" aria-labelledby="tituloJuego">
+    <h3 id="tituloJuego">Matá el tiempo de espera</h3>
+    <p>
+      Mientras esperás, juntá tu propia verdura.
+      El Señor verdulero corre con su canasto:
+      saltá los cajones y recolectá frutas y verduras.
+    </p>
+
+    <div class="juego-marcador">
+      <span>Puntos: <b id="puntosJuego">0</b></span>
+      <span>Récord: <b id="recordJuego">0</b></span>
+      <span>Cosecha: <b id="cosechaJuego">0</b></span>
+    </div>
+
+    <canvas
+      id="huerta"
+      width="800"
+      height="300"
+      tabindex="0"
+      aria-label="Juego del Señor verdulero. Espacio o flecha arriba para saltar. P para pausar."
+      aria-describedby="ayudaJuego estadoJuego"
+    >
+      Tu navegador no puede mostrar este juego.
+    </canvas>
+
+    <div class="juego-controles">
+      <button class="primary" id="inicioJuego" type="button">Empezar</button>
+      <button class="tertiary" id="salto" type="button" disabled>⬆ Saltar</button>
+      <button class="secondary" id="pausaJuego" type="button" disabled>Pausar</button>
+    </div>
+
+    <p id="estadoJuego" role="status">
+      El canasto está vacío. Tu dignidad, por ahora, intacta.
+    </p>
+
+    <p id="ayudaJuego" class="precio-nota">
+      Computadora: Espacio o ↑ con el juego seleccionado.
+      Celular: tocá el escenario o el botón Saltar.
+      Cada fruta o verdura suma 10 puntos. P para pausar.
+      El récord se guarda en este navegador cuando el almacenamiento está disponible.
+    </p>
+
+    <noscript>Activá JavaScript en tu navegador para jugar.</noscript>
+  </section>
+
   <section class="card">
     <h3>Consejos que nadie pidió</h3>
     <p>🥔 Si no sabés qué cocinar, comprá papa. Después seguís sin saber, pero con papa.</p>
@@ -849,6 +945,7 @@ footer{
 <script>
 "use strict";
 
+/* OFERTAS Y MENSAJES */
 const ofertas = [
   "Limones con carácter: te miran y ya hacés una mueca. $XXX el kilo.",
   "Cebollas sensibles: se emocionan hasta con una receta de tortilla. $XXX el kilo.",
@@ -1002,6 +1099,506 @@ modal.addEventListener("close", function() {
 });
 
 nuevaOferta();
+
+/* CARRERA DEL SEÑOR VERDULERO */
+(() => {
+  const canvas = document.getElementById("huerta");
+  const ctx = canvas.getContext("2d");
+  const inicio = document.getElementById("inicioJuego");
+  const salto = document.getElementById("salto");
+  const pausa = document.getElementById("pausaJuego");
+  const estado = document.getElementById("estadoJuego");
+  const puntos = document.getElementById("puntosJuego");
+  const record = document.getElementById("recordJuego");
+  const cosecha = document.getElementById("cosechaJuego");
+
+  if (!ctx) {
+    estado.textContent = "Este navegador no puede dibujar el juego.";
+    inicio.disabled = true;
+    return;
+  }
+
+  const suelo = 248;
+  const frutas = ["🍎","🥕","🍅","🥑","🍌","🥦","🍐","🍆"];
+  const clave = "verduras-moron-record-v1";
+
+  let ancho = 800;
+  let modo = "listo";
+  let mejor = 0;
+  let objetos = [];
+  let tiempo = 0;
+  let proximo = 0;
+  let distancia = 0;
+  let total = 0;
+  let recogidas = 0;
+  let anterior = 0;
+  let animacion = 0;
+
+  const jugador = {
+    x:55,
+    y:suelo-58,
+    w:44,
+    h:58,
+    vy:0
+  };
+
+  try {
+    const guardado = Number(localStorage.getItem(clave));
+    if (Number.isFinite(guardado) && guardado > 0) mejor = guardado;
+  } catch (_) {}
+
+  record.textContent = mejor;
+
+  function marcador() {
+    puntos.textContent = total;
+    cosecha.textContent = recogidas;
+    record.textContent = mejor;
+  }
+
+  function guardar() {
+    if (total <= mejor) return;
+
+    mejor = total;
+
+    try {
+      localStorage.setItem(clave, String(mejor));
+    } catch (_) {}
+
+    marcador();
+  }
+
+  function ajustar() {
+    ancho = Math.max(300, canvas.clientWidth);
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.round(ancho * dpr);
+    canvas.height = Math.round(300 * dpr);
+
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    dibujar();
+  }
+
+  function textoCentral(titulo, detalle) {
+    ctx.fillStyle = "rgba(255,253,248,.94)";
+    ctx.fillRect(12,69,ancho-24,108);
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#175c36";
+    ctx.font = "bold 23px Arial";
+    ctx.fillText(titulo,ancho/2,108,ancho-40);
+
+    ctx.font = "15px Arial";
+    ctx.fillText(detalle,ancho/2,143,ancho-40);
+    ctx.textAlign = "left";
+  }
+
+  function dibujar() {
+    ctx.clearRect(0,0,ancho,300);
+
+    /* Cielo */
+    ctx.fillStyle = "#e9f7ff";
+    ctx.fillRect(0,0,ancho,300);
+
+    /* Sol */
+    ctx.fillStyle = "#f3c74f";
+    ctx.beginPath();
+    ctx.arc(ancho-48,40,19,0,Math.PI*2);
+    ctx.fill();
+
+    /* Paisaje */
+    ctx.fillStyle = "#c5e5be";
+    for (let i=-1;i<ancho/160+1;i++) {
+      const x = i*160-(distancia*.15%160);
+      ctx.beginPath();
+      ctx.ellipse(x+80,248,110,62,0,0,Math.PI*2);
+      ctx.fill();
+    }
+
+    /* Piso */
+    ctx.fillStyle = "#dfc59a";
+    ctx.fillRect(0,suelo,ancho,52);
+    ctx.fillStyle = "#2f8f55";
+    ctx.fillRect(0,suelo,ancho,5);
+
+    ctx.fillStyle = "#b79a70";
+    for(let x=-(distancia%42);x<ancho;x+=42) {
+      ctx.fillRect(x,274,15,3);
+    }
+
+    /* Cajones y cosecha */
+    for (const o of objetos) {
+      if (o.tipo === "cajon") {
+        ctx.fillStyle = "#a56432";
+        ctx.fillRect(o.x,o.y,o.w,o.h);
+
+        ctx.strokeStyle = "#633c20";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(o.x+2,o.y+2,o.w-4,o.h-4);
+
+        ctx.beginPath();
+        ctx.moveTo(o.x+4,o.y+4);
+        ctx.lineTo(o.x+o.w-4,o.y+o.h-4);
+        ctx.moveTo(o.x+o.w-4,o.y+4);
+        ctx.lineTo(o.x+4,o.y+o.h-4);
+        ctx.stroke();
+      } else {
+        ctx.font = '29px "Segoe UI Emoji","Apple Color Emoji",sans-serif';
+        ctx.textAlign = "center";
+        ctx.fillText(o.emoji,o.x+o.w/2,o.y+28);
+        ctx.textAlign = "left";
+      }
+    }
+
+    /* Señor verdulero */
+    const x = jugador.x;
+    const y = jugador.y;
+
+    const paso =
+      modo === "jugando" && jugador.y === suelo-jugador.h
+      ? Math.sin(tiempo*19)*5
+      : 0;
+
+    /* Piernas */
+    ctx.strokeStyle = "#243228";
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(x+15,y+43);
+    ctx.lineTo(x+12+paso,y+56);
+    ctx.moveTo(x+29,y+43);
+    ctx.lineTo(x+31-paso,y+56);
+    ctx.stroke();
+
+    /* Camisa */
+    ctx.fillStyle = "#175c36";
+    ctx.fillRect(x+9,y+23,27,24);
+
+    /* Cabeza */
+    ctx.fillStyle = "#f0bd88";
+    ctx.beginPath();
+    ctx.arc(x+22,y+13,11,0,Math.PI*2);
+    ctx.fill();
+
+    /* Sombrero */
+    ctx.fillStyle = "#f3c74f";
+    ctx.fillRect(x+9,y+1,26,7);
+    ctx.fillRect(x+5,y+7,35,4);
+
+    /* Ojo */
+    ctx.fillStyle = "#243228";
+    ctx.fillRect(x+26,y+12,3,3);
+
+    /* Delantal */
+    ctx.fillStyle = "#fff9ec";
+    ctx.fillRect(x+17,y+28,13,17);
+
+    /* Brazo */
+    ctx.strokeStyle = "#f0bd88";
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(x+32,y+27);
+    ctx.lineTo(x+43,y+35);
+    ctx.stroke();
+
+    /* Canasto */
+    ctx.fillStyle = "#b5753c";
+    ctx.fillRect(x+34,y+35,22,17);
+    ctx.strokeStyle = "#714622";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x+34,y+35,22,17);
+    ctx.beginPath();
+    ctx.arc(x+45,y+35,8,Math.PI,0);
+    ctx.stroke();
+
+    if(modo === "listo") {
+      textoCentral("¡A llenar el canasto!","Tocá Empezar para jugar");
+    }
+
+    if(modo === "pausa") {
+      textoCentral("Un respiro verdulero","Tocá Continuar para seguir");
+    }
+
+    if(modo === "fin") {
+      textoCentral(
+        "¡Se te cayó el bolsón!",
+        total+" puntos · Tocá Jugar de nuevo"
+      );
+    }
+  }
+
+  function choca(a,b) {
+    return (
+      a.x < b.x+b.w &&
+      a.x+a.w > b.x &&
+      a.y < b.y+b.h &&
+      a.y+a.h > b.y
+    );
+  }
+
+  function terminar() {
+    modo = "fin";
+    guardar();
+
+    salto.disabled = true;
+    pausa.disabled = true;
+    inicio.textContent = "Jugar de nuevo";
+    inicio.disabled = false;
+
+    estado.textContent =
+      "Se te cayó el bolsón. Sumaste "+total+
+      " puntos y juntaste "+recogidas+
+      " frutas y verduras. El Señor verdulero recomienda empezar de nuevo.";
+  }
+
+  function avanzar(dt) {
+    tiempo += dt;
+
+    const velocidad = Math.min(390,220+tiempo*3);
+    distancia += velocidad*dt;
+
+    /* Gravedad y salto */
+    jugador.vy += 1800*dt;
+    jugador.y = Math.min(
+      suelo-jugador.h,
+      jugador.y+jugador.vy*dt
+    );
+
+    if(jugador.y === suelo-jugador.h) jugador.vy = 0;
+
+    /* Nuevos obstáculos y frutas */
+    proximo -= dt;
+
+    if(proximo <= 0) {
+      const x = ancho+45;
+
+      objetos.push({
+        tipo:"cajon",
+        x,
+        y:suelo-36,
+        w:36,
+        h:36
+      });
+
+      objetos.push({
+        tipo:"fruta",
+        x:x+2,
+        y:suelo-112,
+        w:32,
+        h:32,
+        emoji:frutas[Math.floor(Math.random()*frutas.length)]
+      });
+
+      objetos.push({
+        tipo:"fruta",
+        x:x+145,
+        y:suelo-40,
+        w:32,
+        h:32,
+        emoji:frutas[Math.floor(Math.random()*frutas.length)]
+      });
+
+      proximo = 1.8+Math.random()*.6;
+    }
+
+    for(const o of objetos) {
+      o.x -= velocidad*dt;
+
+      const cuerpo = {
+        x:jugador.x+7,
+        y:jugador.y+5,
+        w:30,
+        h:jugador.h-8
+      };
+
+      const canasto = {
+        x:jugador.x,
+        y:jugador.y,
+        w:58,
+        h:jugador.h
+      };
+
+      if(o.tipo === "cajon" && choca(cuerpo,o)) {
+        terminar();
+        return;
+      }
+
+      if(o.tipo === "fruta" && !o.tomada && choca(canasto,o)) {
+        o.tomada = true;
+        recogidas++;
+        total += 10;
+        guardar();
+        marcador();
+      }
+    }
+
+    objetos = objetos.filter(o => o.x+o.w > -10 && !o.tomada);
+  }
+
+  function cuadro(ahora) {
+    if(modo !== "jugando") return;
+
+    const dt = Math.min((ahora-anterior)/1000,.04);
+    anterior = ahora;
+
+    avanzar(dt);
+    dibujar();
+
+    if(modo === "jugando") {
+      animacion = requestAnimationFrame(cuadro);
+    }
+  }
+
+  function arrancar() {
+    cancelAnimationFrame(animacion);
+
+    objetos = [];
+    tiempo = 0;
+    proximo = .9;
+    distancia = 0;
+    total = 0;
+    recogidas = 0;
+
+    jugador.y = suelo-jugador.h;
+    jugador.vy = 0;
+
+    modo = "jugando";
+
+    inicio.textContent = "En juego";
+    inicio.disabled = true;
+    salto.disabled = false;
+    pausa.disabled = false;
+    pausa.textContent = "Pausar";
+
+    estado.textContent =
+      "Saltá los cajones y atrapá la cosecha. ¡Cada pieza vale 10 puntos!";
+
+    marcador();
+    canvas.focus({preventScroll:true});
+
+    anterior = performance.now();
+    animacion = requestAnimationFrame(cuadro);
+  }
+
+  function saltar() {
+    if(
+      modo === "jugando" &&
+      jugador.y >= suelo-jugador.h-.1
+    ) {
+      jugador.vy = -650;
+    }
+  }
+
+  function pausar() {
+    if(modo !== "jugando") return;
+
+    modo = "pausa";
+    cancelAnimationFrame(animacion);
+
+    salto.disabled = true;
+    pausa.textContent = "Continuar";
+    estado.textContent = "Partida en pausa. Tu canasto te espera.";
+
+    dibujar();
+  }
+
+  function alternarPausa() {
+    if(modo === "jugando") {
+      pausar();
+      return;
+    }
+
+    if(modo !== "pausa") return;
+
+    modo = "jugando";
+    salto.disabled = false;
+    pausa.textContent = "Pausar";
+    estado.textContent = "¡Seguimos juntando verdura!";
+
+    canvas.focus({preventScroll:true});
+
+    anterior = performance.now();
+    animacion = requestAnimationFrame(cuadro);
+  }
+
+  /* Botones */
+  inicio.addEventListener("click",arrancar);
+  pausa.addEventListener("click",alternarPausa);
+
+  /* Salto inmediato con dedo o mouse */
+  salto.addEventListener("pointerdown",e => {
+    if(e.button !== 0) return;
+    e.preventDefault();
+    canvas.focus({preventScroll:true});
+    saltar();
+  });
+
+  /* Activación del botón por teclado */
+  salto.addEventListener("click",e => {
+    if(e.detail === 0) saltar();
+  });
+
+  /* Tocar el escenario también salta */
+  canvas.addEventListener("pointerdown",e => {
+    if(e.button !== 0) return;
+    canvas.focus({preventScroll:true});
+    saltar();
+  });
+
+  /* Teclado: solo cuando el escenario tiene el foco */
+  canvas.addEventListener("keydown",e => {
+    if(["Space","ArrowUp","KeyP","Escape"].includes(e.code)) {
+      e.preventDefault();
+    }
+
+    if(e.repeat) return;
+
+    if(e.code === "Space" || e.code === "ArrowUp") {
+      if(modo === "listo" || modo === "fin") {
+        arrancar();
+      } else if(modo === "pausa") {
+        alternarPausa();
+      } else {
+        saltar();
+      }
+    }
+
+    if(e.code === "KeyP") alternarPausa();
+    if(e.code === "Escape") pausar();
+  });
+
+  /* Pausas automáticas */
+  window.addEventListener("blur",pausar);
+
+  document.addEventListener("visibilitychange",() => {
+    if(document.hidden) pausar();
+  });
+
+  document.getElementById("juego").addEventListener("focusout",e => {
+    if(!e.currentTarget.contains(e.relatedTarget)) pausar();
+  });
+
+  if("IntersectionObserver" in window) {
+    new IntersectionObserver(entries => {
+      if(!entries[0].isIntersecting) pausar();
+    }).observe(canvas);
+  }
+
+  /* Ajuste para celular, computadora y cambio de orientación */
+  if("ResizeObserver" in window) {
+    new ResizeObserver(() => {
+      pausar();
+      ajustar();
+    }).observe(canvas);
+  } else {
+    window.addEventListener("resize",() => {
+      pausar();
+      ajustar();
+    });
+  }
+
+  ajustar();
+})();
 </script>
 
 </body>
