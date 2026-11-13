@@ -4,18 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verduras y Algo Más – Morón</title>
-<meta name="description" content="Verdulería ficticia en Morón: verduras con personalidad, un encargado muy particular y Packs absurdos. Sitio humorístico y satírico.">
+<meta name="description" content="Verdulería ficticia en Morón. Humor, verduras con personalidad, promociones absurdas y Packs de verdura.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E🥕%3C/text%3E%3C/svg%3E">
 
 <style>
 :root{
   --green:#175c36;
   --green2:#2f8f55;
+  --green3:#dff3e5;
   --cream:#fff9ec;
+  --paper:#fffdf8;
   --ink:#243228;
   --tomato:#c74232;
   --yellow:#f3c74f;
   --orange:#e58d35;
+  --brown:#6f4e37;
+  --line:#dfd4bd;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -32,9 +36,13 @@ button:focus-visible,a:focus-visible,summary:focus-visible{
   outline:3px solid var(--orange);
   outline-offset:5px;
 }
+
+/* BANDERINES */
 .banderines{
   position:absolute;
-  inset:0 0 auto;
+  left:0;
+  right:0;
+  top:0;
   display:flex;
   justify-content:center;
   gap:4px;
@@ -53,17 +61,18 @@ button:focus-visible,a:focus-visible,summary:focus-visible{
 .bandera:nth-child(4n+3){background:var(--green2)}
 .bandera:nth-child(4n){background:var(--orange)}
 
+/* HERO */
 .hero{
-  min-height:710px;
+  min-height:700px;
   position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   color:white;
-  padding:220px 20px 80px;
+  padding:230px 20px 80px;
   background:
-    linear-gradient(120deg,rgba(20,84,48,.94),rgba(46,118,67,.82),rgba(50,35,20,.7)),
+    linear-gradient(120deg,rgba(20,84,48,.94),rgba(46,118,67,.82),rgba(50,35,20,.72)),
     url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=85");
   background-size:cover;
   background-position:center;
@@ -79,7 +88,9 @@ button:focus-visible,a:focus-visible,summary:focus-visible{
 }
 .hero-inner{position:relative;z-index:3;max-width:980px}
 .kicker{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
   background:#fff7cc;
   color:#5b4511;
   border:2px solid rgba(255,255,255,.65);
@@ -93,15 +104,16 @@ button:focus-visible,a:focus-visible,summary:focus-visible{
 }
 .hero h1{
   font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(46px,8vw,88px);
+  font-size:clamp(44px,8vw,88px);
   line-height:1;
   margin:26px 0 14px;
   text-shadow:0 4px 18px rgba(0,0,0,.28);
 }
-.hero-subtitle{
+.hero h2{
   margin:0 auto;
   max-width:800px;
   font-size:clamp(20px,3vw,29px);
+  font-weight:500;
   line-height:1.35;
   color:#f5ffe9;
 }
@@ -112,8 +124,9 @@ button:focus-visible,a:focus-visible,summary:focus-visible{
   font-size:14px;
   line-height:1.5;
   font-style:italic;
+  text-shadow:0 2px 8px rgba(0,0,0,.4);
 }
-.cartel-verdura{
+.cartel-verdulero{
   display:inline-block;
   margin-top:28px;
   background:white;
@@ -139,30 +152,32 @@ button,.btn{
   font-weight:900;
   cursor:pointer;
   margin:6px;
-  text-decoration:none;
   transition:transform .18s ease;
   box-shadow:0 7px 18px rgba(0,0,0,.13);
+  text-decoration:none;
+  line-height:1.3;
 }
 button:hover,.btn:hover{transform:translateY(-2px)}
 .primary{background:var(--green);color:white}
 .secondary{background:var(--tomato);color:white}
 .tertiary{background:var(--yellow);color:#4c3a0b}
 
+/* FAJA */
 .faja-verdura{
   position:absolute;
-  top:62px;
+  top:68px;
   right:24px;
   width:min(430px,calc(100% - 48px));
-  padding:16px 28px;
+  padding:16px 26px;
   background:linear-gradient(135deg,#c0392b,#8e261c);
-  color:white;
+  color:#fff;
   text-align:center;
   font-size:20px;
   line-height:1.2;
   font-weight:900;
   letter-spacing:1px;
   text-transform:uppercase;
-  transform:rotate(9deg);
+  transform:rotate(7deg);
   z-index:5;
   border:4px solid rgba(255,255,255,.82);
   border-radius:4px;
@@ -171,25 +186,27 @@ button:hover,.btn:hover{transform:translateY(-2px)}
 }
 .faja-sub{
   display:block;
-  margin-top:8px;
   font-size:12px;
+  margin-top:7px;
   letter-spacing:2px;
   color:#ffe9a8;
 }
+
+/* CONTENIDO */
 .container{max-width:1120px;margin:auto;padding:20px 18px 50px}
 .notice-strip{
   margin:-18px auto 30px;
   position:relative;
   z-index:6;
   max-width:920px;
-  background:white;
+  background:#fff;
   border:2px dashed var(--green2);
   border-radius:18px;
   padding:16px 18px;
   text-align:center;
   font-size:18px;
-  line-height:1.5;
   font-weight:800;
+  line-height:1.5;
   box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 .card{
@@ -200,7 +217,7 @@ button:hover,.btn:hover{transform:translateY(-2px)}
   margin-bottom:24px;
   box-shadow:0 12px 35px rgba(63,44,24,.08);
 }
-.card h2{
+.card h3{
   margin:0 0 16px;
   color:var(--green);
   font-family:Georgia,"Times New Roman",serif;
@@ -213,9 +230,10 @@ button:hover,.btn:hover{transform:translateY(-2px)}
   background:#26332b;
   color:#c5f4d2;
   padding:10px 18px;
-  border-radius:999px;
+  border-radius:20px;
   font-weight:900;
   margin:6px auto 20px;
+  line-height:1.5;
 }
 .random{
   background:linear-gradient(135deg,#fff4d7,#fff);
@@ -223,64 +241,76 @@ button:hover,.btn:hover{transform:translateY(-2px)}
   text-align:center;
 }
 .random small{
-  color:#914711;
+  color:#92400e;
   font-weight:900;
   text-transform:uppercase;
   letter-spacing:1px;
 }
 #oferta{
-  margin:14px 0;
+  margin-top:14px;
   font-size:28px;
   font-weight:900;
   color:#6b3b15;
-  min-height:86px;
+  min-height:100px;
   display:flex;
   align-items:center;
   justify-content:center;
+  text-align:center;
 }
-.precio-nota{display:block;font-size:13px;color:#6b573f}
+.precio-nota{font-size:13px!important;color:#6b5a40}
+
+/* TARJETAS */
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .item{
-  background:white;
+  background:#fff;
   border:1px solid #e7ddc8;
   border-radius:18px;
   overflow:hidden;
   box-shadow:0 7px 18px rgba(0,0,0,.045);
 }
-.item img{width:100%;height:220px;object-fit:cover;display:block}
+.item img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  display:block;
+  background:var(--green3);
+}
 .item-content{padding:18px}
-.item h3{margin:0 0 8px;color:#14532d;font-size:19px}
+.item h4{margin:0 0 8px;color:#14532d;font-size:19px}
 .item p{margin:0;color:#536057;font-size:16px}
 .testimonial,.mini-card{
   background:#fbfaf5;
   border-left:5px solid var(--green2);
   padding:18px;
   border-radius:14px;
+  text-align:left;
   font-size:17px;
   line-height:1.5;
 }
 .mini-card.yellow{border-left-color:var(--yellow)}
 .mini-card.red{border-left-color:var(--tomato)}
-.encargado-zone{
+.presentacion{
   display:grid;
   grid-template-columns:1.3fr .7fr;
   gap:20px;
   align-items:center;
 }
-.cajon{
-  padding:30px 20px;
-  border:6px solid #ba8752;
-  border-radius:16px;
-  color:#563619;
-  background:repeating-linear-gradient(0deg,#f5dfb8 0 38px,#e7c493 38px 42px);
+.papa-protagonista{
+  margin:0;
+  padding:25px 15px;
+  background:#fff4d7;
+  border-radius:24px;
   text-align:center;
-  font-weight:900;
   transform:rotate(-4deg);
-  box-shadow:0 12px 30px rgba(0,0,0,.08);
 }
-.cajon .verduras{font-size:48px;margin-bottom:16px}
-.cajon small{display:block;margin-top:12px}
+.papa-protagonista .emoji{font-size:100px;line-height:1.2}
+.papa-protagonista figcaption{
+  margin-top:12px;
+  color:var(--green);
+  font-weight:900;
+  line-height:1.5;
+}
 .timeline{display:grid;gap:12px}
 .step{
   padding:15px 16px;
@@ -292,12 +322,13 @@ button:hover,.btn:hover{transform:translateY(-2px)}
 }
 .step strong{color:var(--green)}
 
+/* PACKS */
 .packs-verdura{
   background:linear-gradient(135deg,#fffbeb,#fef3c7);
   border:3px dashed #d97706;
   scroll-margin-top:20px;
 }
-.packs-verdura h2{color:#92400e}
+.packs-verdura h3{color:#92400e}
 .packs-intro{color:#78350f}
 .cartel-packs{
   margin:25px 0;
@@ -315,21 +346,23 @@ button:hover,.btn:hover{transform:translateY(-2px)}
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:18px;
-  margin-top:22px;
 }
 .pack{
+  display:flex;
+  flex-direction:column;
   background:white;
-  border:1px solid #f59e0b;
+  border:1px solid #d97706;
   border-radius:20px;
   padding:22px;
   box-shadow:0 8px 20px rgba(0,0,0,.07);
 }
-.pack .emoji{font-size:38px;margin-bottom:10px}
-.pack h3{margin:0 0 10px;color:#92400e;font-size:21px}
-.pack p{margin:0;font-size:16px;line-height:1.55;color:#4b5563}
-.pack .remate{margin-top:16px;color:#78350f;font-weight:800}
+.pack .emoji{font-size:42px;margin-bottom:10px}
+.pack h4{margin:0 0 10px;color:#92400e;font-size:21px}
+.pack p{margin:0 0 16px;font-size:16px;color:#4b5563}
+.pack ul{padding-left:20px;margin:0 0 20px;line-height:1.7}
+.pack button{margin:auto 0 0}
 .preguntas-packs{margin-top:28px}
-.preguntas-packs h3{color:#78350f}
+.preguntas-packs h4{font-size:22px;color:#78350f}
 details{
   background:white;
   border-left:5px solid #d97706;
@@ -337,68 +370,96 @@ details{
   padding:16px 18px;
   margin-bottom:12px;
 }
-summary{cursor:pointer;color:#78350f;font-weight:800;line-height:1.5}
-details p{margin:10px 0 0}
-.microtexto{text-align:center;font-size:13px!important;font-style:italic;color:#78350f}
+summary{cursor:pointer;font-weight:800;color:#78350f;line-height:1.5}
+details p{margin-bottom:0;font-size:16px!important}
+.microtexto{
+  text-align:center;
+  margin-top:20px;
+  color:#78350f;
+  font-size:13px!important;
+  font-style:italic;
+}
 .cta{
   text-align:center;
   background:linear-gradient(135deg,var(--green),var(--green2));
   color:white;
 }
-.cta h2{color:white}
+.cta h3{color:white}
 .cta p{color:#ebffef}
 
+/* DIÁLOGO */
 dialog{
-  border:3px solid #ecdfc4;
-  border-radius:28px;
-  padding:34px;
-  width:calc(100% - 40px);
+  background:#fffef9;
+  color:var(--ink);
+  width:calc(100% - 32px);
   max-width:590px;
   max-height:85vh;
   overflow:auto;
-  background:#fffef9;
-  color:var(--ink);
+  border-radius:28px;
+  padding:34px;
   text-align:center;
   box-shadow:0 24px 70px rgba(0,0,0,.35);
+  border:3px solid #ecdfc4;
 }
-dialog::backdrop{background:rgba(0,0,0,.62)}
+dialog::backdrop{background:rgba(0,0,0,.65)}
 .modal-icon{font-size:52px;margin-bottom:10px}
-.modal-title{font-size:26px;color:var(--green);margin:0 0 16px}
+.modal-title{
+  font-size:26px;
+  color:var(--green);
+  margin:0 0 16px;
+}
 #textoModal{font-size:21px;line-height:1.5;margin:0 0 24px}
 .modal-note{
-  background:#fff3c8;
-  border:1px solid #efd177;
+  font-size:13px;
   color:#614e13;
-  padding:15px;
-  border-radius:15px;
-  font-size:14px;
+  padding:12px;
+  background:#fff3c8;
+  border-radius:12px;
 }
-footer{text-align:center;padding:30px 20px 42px;color:#6d6251;font-size:14px;line-height:1.6}
-.footer-badge{display:inline-block;margin-top:8px;padding:7px 11px;background:#efe6d2;border-radius:14px}
-
+footer{
+  text-align:center;
+  padding:20px 20px 42px;
+  color:#6b6150;
+  font-size:14px;
+  line-height:1.6;
+}
+.footer-badge{
+  display:block;
+  max-width:740px;
+  margin:12px auto 0;
+  padding:10px 14px;
+  background:#efe6d2;
+  border-radius:16px;
+}
 @media(max-width:900px){
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .encargado-zone,.pack-grid{grid-template-columns:1fr}
-  .cajon{max-width:320px;width:100%;margin:auto}
+  .presentacion{grid-template-columns:1fr}
+  .pack-grid{grid-template-columns:1fr}
+  .papa-protagonista{max-width:300px;width:100%;margin:auto}
 }
 @media(max-width:650px){
   .faja-verdura{
-    top:40px;
-    right:20px;
-    width:calc(100% - 40px);
+    top:55px;
+    right:18px;
+    width:calc(100% - 36px);
     font-size:14px;
-    padding:13px 16px;
+    padding:12px 16px;
     transform:rotate(4deg);
   }
   .faja-sub{font-size:10px}
-  .hero{min-height:680px;padding:180px 18px 70px}
   .grid,.grid-2{grid-template-columns:1fr}
+  .hero{min-height:650px;padding:185px 18px 70px}
+  .hero-buttons button,.hero-buttons .btn{
+    display:block;
+    width:100%;
+    margin:10px 0;
+  }
   #oferta{font-size:22px}
   .card{padding:22px}
-  .card h2{font-size:28px}
-  .bandera{flex-basis:42px;height:54px}
+  .card h3{font-size:28px}
+  .bandera{flex-basis:42px;height:45px}
   .cartel-packs{font-size:19px;padding:18px}
-  dialog{padding:25px}
+  dialog{padding:24px}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -408,6 +469,7 @@ footer{text-align:center;padding:30px 20px 42px;color:#6d6251;font-size:14px;lin
 </head>
 
 <body>
+
 <header class="hero">
   <div class="banderines" aria-hidden="true">
     <span class="bandera"></span><span class="bandera"></span>
@@ -429,4 +491,518 @@ footer{text-align:center;padding:30px 20px 42px;color:#6d6251;font-size:14px;lin
   <div class="hero-inner">
     <div class="kicker">🥕 Verdulería de barrio · Morón</div>
     <h1>Verduras y Algo Más</h1>
-    <p class="hero-subtitle">Acá te vendemos cu
+    <h2>Acá te vendemos cualquier verdura, aunque hayas venido por fruta.</h2>
+
+    <p class="satira-aviso">
+      Una verdulería ficticia donde todo es humor y cualquier parecido
+      con la realidad es pura coincidencia.
+    </p>
+
+    <div class="cartel-verdulero">🥔 Mucha verdura. Cero humildad.</div>
+
+    <nav class="hero-buttons" aria-label="Explorar la verdulería">
+      <button class="primary" type="button" onclick="verOferta()">Ver oferta random</button>
+      <button class="secondary" type="button" onclick="encargado()">Hablar con el encargado</button>
+      <a class="btn tertiary" href="#packs">Conocer los Packs</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="notice-strip">
+    🎉 FESTIVAL DEL BOLSÓN: la papa puso el cuerpo,
+    la cebolla puso la emoción y el encargado puso cara de oferta.
+  </div>
+
+  <div class="center">
+    <div class="visit">🥕 NIVEL DE VERDURA: EXAGERADO</div>
+  </div>
+
+  <section class="card random" id="ofertas" aria-label="Oferta del momento">
+    <small>Oferta random del momento</small>
+    <div id="oferta" aria-live="polite">
+      Papas con autoestima: se creen el plato principal.
+    </div>
+    <p class="precio-nota">Precios inventados para el chiste. No se realizan ventas.</p>
+    <button class="tertiary" type="button" onclick="nuevaOferta()">Otra oferta disparatada</button>
+  </section>
+
+  <section class="card">
+    <div class="presentacion">
+      <div>
+        <h3>Una verdulería con demasiado carácter</h3>
+        <p>
+          Acá la lechuga exige protagonismo, el tomate se cree una celebridad
+          y la papa opina de todas las recetas aunque nadie le pregunte.
+        </p>
+        <p>
+          El encargado dice que selecciona cada producto a mano.
+          Principalmente porque <strong>todavía no aprendió a hacerlo con los codos</strong>.
+        </p>
+        <p>
+          Nuestro secreto es simple: acomodar todo en un cajón,
+          ponerle un nombre espectacular y decir “mirá qué belleza”.
+          Incluso cuando estamos señalando un nabo.
+        </p>
+      </div>
+
+      <figure class="papa-protagonista">
+        <div class="emoji" aria-hidden="true">🥔</div>
+        <figcaption>
+          EMPLEADA DEL MES<br>
+          No habla. Rinde una barbaridad.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>La receta del encargado para venderte de más</h3>
+    <div class="timeline">
+      <div class="step"><strong>Paso 1:</strong> preguntarte qué vas a cocinar, aunque hayas venido por un limón.</div>
+      <div class="step"><strong>Paso 2:</strong> levantar un zapallo como si fuera un trofeo.</div>
+      <div class="step"><strong>Paso 3:</strong> decir “esto te lo llevás y me agradecés”.</div>
+      <div class="step"><strong>Paso 4:</strong> agregar perejil con la solemnidad de un gran chef.</div>
+      <div class="step"><strong>Paso 5:</strong> verte salir con una huerta portátil y ninguna idea para la cena.</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Especialidades de la casa</h3>
+
+    <div class="grid">
+      <article class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg" alt="Papas" loading="lazy">
+        <div class="item-content">
+          <h4>🥔 Papa agrandada</h4>
+          <p>Desde que descubrió el puré, se presenta como especialista en transformación personal.</p>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Banana" loading="lazy">
+        <div class="item-content">
+          <h4>🍌 Banana dramática</h4>
+          <p>A la mañana está verde. A la tarde siente que ya se le pasó la vida.</p>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Avocado_Hass_-_single_and_halved.jpg" alt="Palta" loading="lazy">
+        <div class="item-content">
+          <h4>🥑 Palta inalcanzable</h4>
+          <p>Su punto justo dura lo mismo que el encargado diciendo “te hago precio”.</p>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg" alt="Tomate" loading="lazy">
+        <div class="item-content">
+          <h4>🍅 Tomate influencer</h4>
+          <p>Quiere salir en todas las ensaladas, pero solamente de su mejor perfil.</p>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?auto=format&fit=crop&w=900&q=80" alt="Lechuga" loading="lazy">
+        <div class="item-content">
+          <h4>🥬 Lechuga con aires</h4>
+          <p>Ocupa media bolsa y después dice que ella aporta ligereza.</p>
+        </div>
+      </article>
+
+      <article class="item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Aubergine.jpg" alt="Berenjena" loading="lazy">
+        <div class="item-content">
+          <h4>🍆 Berenjena de categoría</h4>
+          <p>No se cree mejor que las demás. Simplemente exige que la llamen por su nombre completo.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Chismes del cajón</h3>
+    <div class="grid-2">
+      <div class="mini-card">🥔 La papa pidió un aumento. El encargado le agregó tierra para que pese más.</div>
+      <div class="mini-card yellow">🍌 La banana quiere hacer humor. Hasta ahora viene bastante torcida.</div>
+      <div class="mini-card red">🍅 El tomate pidió luz natural para salir mejor en la ensalada.</div>
+      <div class="mini-card">🧅 La cebolla dijo que iba a contar algo lindo. Lloraron todos igual.</div>
+      <div class="mini-card yellow">🥑 La palta está buscando su momento. El encargado también.</div>
+      <div class="mini-card red">🥕 La zanahoria se anotó en una carrera. Dice que tiene mucha raíz en el barrio.</div>
+    </div>
+  </section>
+
+  <section class="card packs-verdura" id="packs">
+    <h3>Packs especiales de verdura</h3>
+    <p class="packs-intro">
+      Comprar una papa era demasiado sencillo. Por eso inventamos los Packs:
+      la misma verdura, más entusiasmo y un nombre que ocupa media bolsa.
+    </p>
+
+    <div class="cartel-packs">
+      Vos ponés la olla.<br>
+      Nosotros, la verdura y el verso.
+    </div>
+
+    <div class="pack-grid">
+      <article class="pack">
+        <div class="emoji" aria-hidden="true">🥕</div>
+        <h4>Pack “Yo Confío”</h4>
+        <p>
+          Para quienes dicen “armame algo” y descubren que el encargado
+          se toma esas palabras demasiado en serio.
+        </p>
+        <ul>
+          <li>Papas con ganas de ser puré.</li>
+          <li>Zanahorias que se creen protagonistas.</li>
+          <li>Una verdura sorpresa que tampoco sabe por qué está ahí.</li>
+        </ul>
+        <button class="primary" type="button" onclick="verPack('confio')">Conocer la sorpresa</button>
+      </article>
+
+      <article class="pack">
+        <div class="emoji" aria-hidden="true">🛍️</div>
+        <h4>Bolsón Grande</h4>
+        <p>
+          Pensado para una familia, una sopa multitudinaria
+          o alguien que confundió hambre con capacidad de almacenamiento.
+        </p>
+        <ul>
+          <li>Un zapallo que exige asiento propio.</li>
+          <li>Papas suficientes para hablar de papas toda la semana.</li>
+          <li>Una lechuga que ocupa el espacio restante.</li>
+        </ul>
+        <button class="primary" type="button" onclick="verPack('grande')">Medir el entusiasmo</button>
+      </article>
+
+      <article class="pack">
+        <div class="emoji" aria-hidden="true">🥬</div>
+        <h4>Pack Compromiso</h4>
+        <p>
+          Para quienes prometieron comer más verde y necesitan
+          que una acelga los mire fijo desde la heladera.
+        </p>
+        <ul>
+          <li>Acelga con expectativas altísimas.</li>
+          <li>Brócoli que pregunta cuándo cocinás.</li>
+          <li>Un zucchini que cree en vos más que vos mismo.</li>
+        </ul>
+        <button class="primary" type="button" onclick="verPack('compromiso')">Escuchar a la acelga</button>
+      </article>
+    </div>
+
+    <div class="preguntas-packs">
+      <h4>Preguntas frecuentes sobre los Packs</h4>
+
+      <details>
+        <summary>¿Puedo elegir qué trae mi Pack?</summary>
+        <p>
+          Podés expresar tus preferencias. La papa suele escuchar;
+          la berenjena tiene una personalidad bastante más complicada.
+        </p>
+      </details>
+
+      <details>
+        <summary>¿El Bolsón Grande entra en mi heladera?</summary>
+        <p>
+          Depende de tu heladera y de cuánto espacio esté dispuesta
+          a compartir la mostaza que vive ahí desde siempre.
+        </p>
+      </details>
+
+      <details>
+        <summary>¿Qué tiene de especial el Pack “Yo Confío”?</summary>
+        <p>
+          La emoción de descubrir el contenido y la cara del encargado
+          cuando le preguntás qué se cocina con eso.
+        </p>
+      </details>
+
+      <details>
+        <summary>¿El Pack Compromiso cocina por mí?</summary>
+        <p>
+          No. El brócoli da consejos desde la bolsa,
+          pero a la hora de lavar la olla se hace el distraído.
+        </p>
+      </details>
+
+      <details>
+        <summary>¿Los Packs incluyen recetas?</summary>
+        <p>
+          Incluyen la receta favorita del encargado:
+          “Cortás todo, lo ponés ahí y vas viendo”.
+          El “ahí” cambia según su estado de ánimo.
+        </p>
+      </details>
+    </div>
+
+    <p class="microtexto">
+      Packs ficticios. Las verduras con personalidad tampoco existen,
+      aunque algunas paltas hacen un esfuerzo notable.
+    </p>
+  </section>
+
+  <section class="card">
+    <h3>Consejos que nadie pidió</h3>
+    <p>🥔 Si no sabés qué cocinar, comprá papa. Después seguís sin saber, pero con papa.</p>
+    <p>🥑 No aprietes todas las paltas. Algunas se toman las cosas personalmente.</p>
+    <p>🍅 El tomate no está caro: según él, está cotizando su presencia.</p>
+    <p>🧅 Si vas a discutir con una cebolla, preparate para perder llorando.</p>
+    <p>🥬 “Algo más” es lo que el encargado te ofrece cuando ya tenés las dos manos ocupadas.</p>
+    <p>🍆 Ante la duda, consultá a la berenjena. Tiene la misma información que el encargado, pero interrumpe menos.</p>
+  </section>
+
+  <section class="card">
+    <h3>Promociones absurdamente tentadoras</h3>
+    <div class="grid-2">
+      <div class="testimonial">
+        🥔 <strong>Combo “Hoy cocino”</strong><br>
+        Papa, cebolla y una confianza que suele durar hasta que hay que pelar.
+      </div>
+      <div class="testimonial">
+        🧅 <strong>Dúo “Lloramos juntos”</strong><br>
+        Dos cebollas. Una para cocinar y otra para contarle cómo estuvo tu día.
+      </div>
+      <div class="testimonial">
+        🥗 <strong>Ensalada “Me estoy cuidando”</strong><br>
+        Lechuga y tomate para acompañar esa milanesa del tamaño de una baldosa.
+      </div>
+      <div class="testimonial">
+        🍉 <strong>Sandía “Haceme lugar”</strong><br>
+        Te llevás una fruta y descubrís qué amigos te ayudan a cargar cosas.
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Preguntas frecuentes de mostrador</h3>
+    <div class="grid-2">
+      <div class="testimonial">
+        <strong>¿La palta está madura?</strong><br>
+        Hace un rato dijo “todavía no”. Ahora está evitando el tema.
+      </div>
+      <div class="testimonial">
+        <strong>¿Qué me recomendás para una sopa?</strong><br>
+        Una olla. El encargado considera que ese es su mejor consejo.
+      </div>
+      <div class="testimonial">
+        <strong>¿Por qué hay tantos banderines?</strong><br>
+        Porque el zapallo pidió una ambientación acorde con su importancia.
+      </div>
+      <div class="testimonial">
+        <strong>¿La verdura viene lavada?</strong><br>
+        La papa insiste en que la tierra es parte de su estética rural.
+      </div>
+      <div class="testimonial">
+        <strong>¿Qué significa “algo más”?</strong><br>
+        Generalmente, medio kilo de algo que no figuraba en tus planes.
+      </div>
+      <div class="testimonial">
+        <strong>¿Puedo comprar desde esta página?</strong><br>
+        No. Es una verdulería ficticia: los botones sirven para seguir el chiste.
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Testimonios tan ficticios como la verdulería</h3>
+    <div class="grid-2">
+      <div class="testimonial">“Fui por un limón. Salí con un Bolsón Grande y un zapallo al que ahora llamamos Ernesto.”</div>
+      <div class="testimonial">“El encargado me dijo que la palta estaba para mañana. No especificó cuál.”</div>
+      <div class="testimonial">“Compré el Pack Compromiso. El brócoli ya me preguntó tres veces qué pienso hacer con mi vida.”</div>
+      <div class="testimonial">“La berenjena me miró por encima del hombro. Ni siquiera tiene hombros. Impresionante.”</div>
+    </div>
+  </section>
+
+  <section class="card cta">
+    <h3>El encargado tiene una respuesta para todo</h3>
+    <p>
+      Puede que no sea la respuesta a tu pregunta.
+      Pero casi siempre termina recomendándote llevar dos kilos.
+    </p>
+    <button class="tertiary" type="button" onclick="encargado()">Hablar con el encargado</button>
+    <button class="secondary" type="button" onclick="preciosMayoristas()">Ver precios mayoristas</button>
+    <button class="tertiary" type="button" onclick="chismeVerdulero()">Escuchar a las verduras</button>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Verduras y Algo Más – Morón 🥕
+  <div class="footer-badge">
+    Sitio humorístico y satírico · Contenido ficticio ·
+    Sin vínculo con empresas o instituciones reales.<br>
+    No se realizan ventas, cobros ni pedidos.
+  </div>
+</footer>
+
+<dialog id="modalVerdulero" aria-labelledby="tituloModal" aria-describedby="textoModal">
+  <div class="modal-icon" id="iconoModal" aria-hidden="true">🥬</div>
+  <h2 class="modal-title" id="tituloModal">El rincón del encargado</h2>
+  <p id="textoModal"></p>
+  <p class="modal-note">Todo es parte del humor de esta verdulería ficticia.</p>
+  <button class="primary" id="botonEntendido" type="button" onclick="ocultarMensaje()">Entendido</button>
+</dialog>
+
+<script>
+"use strict";
+
+const ofertas = [
+  "Limones con carácter: te miran y ya hacés una mueca. $XXX el kilo.",
+  "Cebollas sensibles: se emocionan hasta con una receta de tortilla. $XXX el kilo.",
+  "Peras indecisas: no saben si ir al postre o quedarse charlando. $XXX el kilo.",
+  "Bananas optimistas: siempre le buscan la curva positiva. $XXX el kilo.",
+  "Ajos intensos: una compra que tus vecinos van a recordar. $XXX la unidad.",
+  "Zapallos enormes: ideales para sopa y conversaciones sobre tamaño. $XXX el kilo.",
+  "Naranjas presumidas: dicen que exprimen lo mejor de cada día. $XXX el kilo.",
+  "Papas todoterreno: sirven para todo menos para decidir qué cenar. $XXX el kilo.",
+  "Sandías con presencia: ocupan la heladera y el centro de la conversación. $XXX el kilo.",
+  "Acelgas entusiastas: creen que esta vez sí vas a hacer la tarta. $XXX el atado.",
+  "Uvas sociables: no se venden sueltas porque les gusta estar en grupo. $XXX el kilo.",
+  "Morrones elegantes: le levantan el nivel hasta al arroz de ayer. $XXX la unidad.",
+  "Manzanas coquetas: se acomodan el cabito antes de la foto. $XXX el kilo.",
+  "Pepinos tranquilos: nunca se hacen mala ensalada. $XXX el kilo.",
+  "Batatas dulces: el encargado les pide consejos para ser más amable. $XXX el kilo.",
+  "Zanahorias orgullosas: dicen que el naranja combina con todo. $XXX el kilo."
+];
+
+const mensajesEncargado = [
+  "El encargado está contando arvejas. Perdió la cuenta en siete y culpó al zapallo.",
+  "El encargado está explicándole a una banana que no todo en la vida es madurar.",
+  "El encargado recomienda llevar dos kilos. Todavía no escuchó de qué.",
+  "El encargado está buscando el lado fotogénico de un nabo.",
+  "El encargado dice que esa papa es una belleza. Le dice lo mismo a todas.",
+  "El encargado está tratando de acomodar una sandía en una bolsa demasiado optimista.",
+  "El encargado salió a perseguir un limón que rodó con demasiada confianza.",
+  "El encargado está negociando espacio en el cajón con una lechuga enorme.",
+  "El encargado te recomienda el Pack “Yo Confío”. Lo dice con una seguridad desproporcionada.",
+  "El encargado está practicando su frase estrella: “Mirá lo que es este tomate”."
+];
+
+const mensajesMayoristas = [
+  "Por diez kilos de papa, el encargado te cuenta diez veces lo buena que está la papa.",
+  "El precio por cajón depende de cuánto tarde el encargado en encontrar la calculadora entre los limones.",
+  "Llevando tres sandías, el cuarto problema es dónde ponerlas.",
+  "El descuento mayorista viene acompañado de una charla larguísima sobre zapallos.",
+  "Por cantidad, las cebollas lloran en coro.",
+  "El encargado dice que te hace un número redondo. Dibujó una naranja.",
+  "La oferta por volumen consiste en que el encargado grita el precio más fuerte.",
+  "Con veinte kilos de zanahoria ya podés empezar a pensar como un conejo."
+];
+
+const chismes = [
+  "La lechuga acusa al repollo de copiarle el estilo, pero con demasiadas capas.",
+  "La papa dice que es versátil. La batata dice que ella además es dulce.",
+  "El tomate pidió un camerino. Le dieron un cajón con vista a los limones.",
+  "La berenjena quiere que la ensalada lleve su nombre aunque no participe.",
+  "El brócoli del Pack Compromiso preparó una charla motivacional. Nadie quiso escucharlo.",
+  "El zapallo del Bolsón Grande dice que no está ocupando espacio: está aportando presencia.",
+  "Una zanahoria pidió salir primera en el Pack. El encargado le dijo que no sea raíz de conflictos.",
+  "La palta estuvo perfecta durante once segundos. El encargado estaba mirando para otro lado."
+];
+
+const packs = {
+  confio: {
+    icono: "🥕",
+    titulo: "Pack “Yo Confío”",
+    texto: "La sorpresa de hoy es un nabo convencido de que lo elegiste a propósito. Viene acompañado por papas, zanahorias y el entusiasmo desmedido del encargado."
+  },
+  grande: {
+    icono: "🛍️",
+    titulo: "Bolsón Grande",
+    texto: "El zapallo ya eligió su lado de la heladera. Las papas preguntan si hay ascensor. La lechuga dice que ella no pesa, que solamente ocupa."
+  },
+  compromiso: {
+    icono: "🥬",
+    titulo: "Pack Compromiso",
+    texto: "La acelga cree en vos. El brócoli te preparó un discurso. El zucchini ya está diciendo “el lunes arrancamos”. La olla sigue esperando."
+  }
+};
+
+let ultimaOferta = -1;
+let focoAnterior = null;
+
+function elegir(lista) {
+  return lista[Math.floor(Math.random() * lista.length)];
+}
+
+function precio() {
+  return elegir([390,450,520,650,750,890,990,1100,1250,1390,1600,1850,2100,2450])
+    .toLocaleString("es-AR");
+}
+
+function nuevaOferta() {
+  let indice;
+  do {
+    indice = Math.floor(Math.random() * ofertas.length);
+  } while (indice === ultimaOferta);
+
+  ultimaOferta = indice;
+  document.getElementById("oferta").textContent =
+    ofertas[indice].replace("XXX", precio());
+}
+
+function verOferta() {
+  nuevaOferta();
+  document.getElementById("ofertas").scrollIntoView({block:"center"});
+}
+
+function mostrarMensaje(icono, titulo, texto) {
+  const modal = document.getElementById("modalVerdulero");
+  focoAnterior = document.activeElement;
+
+  document.getElementById("iconoModal").textContent = icono;
+  document.getElementById("tituloModal").textContent = titulo;
+  document.getElementById("textoModal").textContent = texto;
+
+  if (!modal.open) modal.showModal();
+  document.getElementById("botonEntendido").focus();
+}
+
+function ocultarMensaje() {
+  document.getElementById("modalVerdulero").close();
+}
+
+function encargado() {
+  mostrarMensaje("🥬", "Dice el encargado…", elegir(mensajesEncargado));
+}
+
+function preciosMayoristas() {
+  mostrarMensaje("🥔", "Grandes cantidades de verso", elegir(mensajesMayoristas));
+}
+
+function chismeVerdulero() {
+  mostrarMensaje("🍅", "Se comenta en el cajón…", elegir(chismes));
+}
+
+function verPack(nombre) {
+  const pack = packs[nombre];
+  if (pack) mostrarMensaje(pack.icono, pack.titulo, pack.texto);
+}
+
+const modal = document.getElementById("modalVerdulero");
+
+modal.addEventListener("click", function(evento) {
+  if (evento.target !== modal) return;
+
+  const limites = modal.getBoundingClientRect();
+  const fuera =
+    evento.clientX < limites.left ||
+    evento.clientX > limites.right ||
+    evento.clientY < limites.top ||
+    evento.clientY > limites.bottom;
+
+  if (fuera) ocultarMensaje();
+});
+
+modal.addEventListener("close", function() {
+  if (focoAnterior && focoAnterior.isConnected) focoAnterior.focus();
+});
+
+nuevaOferta();
+</script>
+
+</body>
+</html>
